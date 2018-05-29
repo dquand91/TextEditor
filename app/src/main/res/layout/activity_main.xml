@@ -9,6 +9,13 @@
     app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="0dp"/>
+
     <include
         android:id="@+id/actionBar_main"
         layout="@layout/action_bar_layout"
@@ -19,8 +26,7 @@
     <luongduongquan.com.photoeditor.PhotoEditorView
         android:id="@+id/photoEditorView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_height="0dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

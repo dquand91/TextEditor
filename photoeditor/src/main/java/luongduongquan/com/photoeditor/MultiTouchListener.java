@@ -199,14 +199,15 @@ class MultiTouchListener implements OnTouchListener {
                     else
                         mOnPhotoEditorListener.onStopViewChangeListener(ViewType.TEXT);
                 }
-            } else {
-                if (mOnPhotoEditorListener != null) {
-                    if (isStart)
-                        mOnPhotoEditorListener.onStartViewChangeListener(ViewType.EMOJI);
-                    else
-                        mOnPhotoEditorListener.onStopViewChangeListener(ViewType.EMOJI);
-                }
             }
+//            else {
+//                if (mOnPhotoEditorListener != null) {
+//                    if (isStart)
+//                        mOnPhotoEditorListener.onStartViewChangeListener(ViewType.EMOJI);
+//                    else
+//                        mOnPhotoEditorListener.onStopViewChangeListener(ViewType.EMOJI);
+//                }
+//            }
         } else {
             if (mOnPhotoEditorListener != null) {
                 if (isStart)
@@ -279,6 +280,8 @@ class MultiTouchListener implements OnTouchListener {
         void onClick();
 
         void onLongClick();
+
+        void onDoubleClick();
     }
 
     void setOnGestureControl(OnGestureControl onGestureControl) {
@@ -300,6 +303,14 @@ class MultiTouchListener implements OnTouchListener {
             if (mOnGestureControl != null) {
                 mOnGestureControl.onLongClick();
             }
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            if(mOnGestureControl !=null){
+                mOnGestureControl.onDoubleClick();
+            }
+            return true;
         }
     }
 }

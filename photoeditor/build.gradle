@@ -1,5 +1,30 @@
 apply plugin: 'com.android.library'
 
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'photoeditor'
+
+    publishedGroupId = 'luongduongquan.com'
+    libraryName = 'PhotoEditor'
+    artifact = 'photoeditor'
+
+    libraryDescription = 'A Photo Editor library to edit image using paints,text,emoji and images'
+
+    siteUrl = 'https://github.com/dquand91/TextEditor'
+    gitUrl = 'https://github.com/dquand91/TextEditor'
+
+    libraryVersion = '1.0'
+
+    developerId = 'dquand91'
+    developerName = 'Luong Duong Quan'
+    developerEmail = 'dquand91@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 27
 
@@ -31,4 +56,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

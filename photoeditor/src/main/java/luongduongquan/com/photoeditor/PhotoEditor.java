@@ -41,7 +41,7 @@ public class PhotoEditor {
 	private OnPhotoEditorListener mOnPhotoEditorListener;
 	private boolean isTextPinchZoomable;
 	private Typeface mDefaultTextTypeface;
-	private Typeface mDefaultEmojiTypeface;
+//	private Typeface mDefaultEmojiTypeface;
 
 
 	private PhotoEditor(Builder builder) {
@@ -52,7 +52,7 @@ public class PhotoEditor {
 //		this.brushDrawingView = builder.brushDrawingView;
 		this.isTextPinchZoomable = builder.isTextPinchZoomable;
 		this.mDefaultTextTypeface = builder.textTypeface;
-		this.mDefaultEmojiTypeface = builder.emojiTypeface;
+//		this.mDefaultEmojiTypeface = builder.emojiTypeface;
 		mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //		brushDrawingView.setBrushViewChangeListener(this);
 		addedViews = new ArrayList<>();
@@ -85,6 +85,11 @@ public class PhotoEditor {
 
 			@Override
 			public void onLongClick() {
+
+			}
+
+			@Override
+			public void onDoubleClick() {
 
 			}
 		});
@@ -146,6 +151,12 @@ public class PhotoEditor {
 					mOnPhotoEditorListener.onEditTextChangeListener(textRootView, textInput, currentTextColor);
 				}
 			}
+
+			@Override
+			public void onDoubleClick() {
+				Log.d(TAG, "onDoubleClick: QUAN123");
+
+			}
 		});
 
 		textRootView.setOnTouchListener(multiTouchListener);
@@ -192,9 +203,9 @@ public class PhotoEditor {
 	 *
 	 * @param emojiName
 	 */
-	public void addEmoji(String emojiName) {
-		addEmoji(null, emojiName);
-	}
+//	public void addEmoji(String emojiName) {
+//		addEmoji(null, emojiName);
+//	}
 
 	/**
 	 * Adds emoji to the {@link PhotoEditorView} which you drag,rotate and scale using pinch
@@ -203,35 +214,35 @@ public class PhotoEditor {
 	 * @param emojiTypeface typeface for custom font to show emoji unicode in specific font
 	 * @param emojiName     unicode in form of string to display emoji
 	 */
-	public void addEmoji(Typeface emojiTypeface, String emojiName) {
-//		brushDrawingView.setBrushDrawingMode(false);
-		final View emojiRootView = getLayout(ViewType.EMOJI);
-		final TextView emojiTextView = emojiRootView.findViewById(R.id.tvPhotoEditorText);
-		final FrameLayout frmBorder = emojiRootView.findViewById(R.id.frmBorder);
-		final ImageView imgClose = emojiRootView.findViewById(R.id.imgPhotoEditorClose);
-
-		if (emojiTypeface != null) {
-			emojiTextView.setTypeface(emojiTypeface);
-		}
-		emojiTextView.setTextSize(56);
-		emojiTextView.setText(emojiName);
-		MultiTouchListener multiTouchListener = getMultiTouchListener();
-		multiTouchListener.setOnGestureControl(new MultiTouchListener.OnGestureControl() {
-			@Override
-			public void onClick() {
-				boolean isBackgroundVisible = frmBorder.getTag() != null && (boolean) frmBorder.getTag();
-				frmBorder.setBackgroundResource(isBackgroundVisible ? 0 : R.drawable.rounded_border_tv);
-				imgClose.setVisibility(isBackgroundVisible ? View.GONE : View.VISIBLE);
-				frmBorder.setTag(!isBackgroundVisible);
-			}
-
-			@Override
-			public void onLongClick() {
-			}
-		});
-		emojiRootView.setOnTouchListener(multiTouchListener);
-		addViewToParent(emojiRootView, ViewType.EMOJI);
-	}
+//	public void addEmoji(Typeface emojiTypeface, String emojiName) {
+////		brushDrawingView.setBrushDrawingMode(false);
+//		final View emojiRootView = getLayout(ViewType.EMOJI);
+//		final TextView emojiTextView = emojiRootView.findViewById(R.id.tvPhotoEditorText);
+//		final FrameLayout frmBorder = emojiRootView.findViewById(R.id.frmBorder);
+//		final ImageView imgClose = emojiRootView.findViewById(R.id.imgPhotoEditorClose);
+//
+//		if (emojiTypeface != null) {
+//			emojiTextView.setTypeface(emojiTypeface);
+//		}
+//		emojiTextView.setTextSize(56);
+//		emojiTextView.setText(emojiName);
+//		MultiTouchListener multiTouchListener = getMultiTouchListener();
+//		multiTouchListener.setOnGestureControl(new MultiTouchListener.OnGestureControl() {
+//			@Override
+//			public void onClick() {
+//				boolean isBackgroundVisible = frmBorder.getTag() != null && (boolean) frmBorder.getTag();
+//				frmBorder.setBackgroundResource(isBackgroundVisible ? 0 : R.drawable.rounded_border_tv);
+//				imgClose.setVisibility(isBackgroundVisible ? View.GONE : View.VISIBLE);
+//				frmBorder.setTag(!isBackgroundVisible);
+//			}
+//
+//			@Override
+//			public void onLongClick() {
+//			}
+//		});
+//		emojiRootView.setOnTouchListener(multiTouchListener);
+//		addViewToParent(emojiRootView, ViewType.EMOJI);
+//	}
 
 
 	/**
@@ -282,25 +293,25 @@ public class PhotoEditor {
 				TextView txtText = rootView.findViewById(R.id.tvPhotoEditorText);
 				if (txtText != null && mDefaultTextTypeface != null) {
 					txtText.setGravity(Gravity.CENTER);
-					if (mDefaultEmojiTypeface != null) {
-						txtText.setTypeface(mDefaultTextTypeface);
-					}
+//					if (mDefaultEmojiTypeface != null) {
+//						txtText.setTypeface(mDefaultTextTypeface);
+//					}
 				}
 				break;
 			case IMAGE:
 				rootView = mLayoutInflater.inflate(R.layout.view_photo_editor_image, null);
 				break;
-			case EMOJI:
-				rootView = mLayoutInflater.inflate(R.layout.view_photo_editor_text, null);
-				TextView txtTextEmoji = rootView.findViewById(R.id.tvPhotoEditorText);
-				if (txtTextEmoji != null) {
-					if (mDefaultEmojiTypeface != null) {
-						txtTextEmoji.setTypeface(mDefaultEmojiTypeface);
-					}
-					txtTextEmoji.setGravity(Gravity.CENTER);
-					txtTextEmoji.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-				}
-				break;
+//			case EMOJI:
+//				rootView = mLayoutInflater.inflate(R.layout.view_photo_editor_text, null);
+//				TextView txtTextEmoji = rootView.findViewById(R.id.tvPhotoEditorText);
+//				if (txtTextEmoji != null) {
+//					if (mDefaultEmojiTypeface != null) {
+//						txtTextEmoji.setTypeface(mDefaultEmojiTypeface);
+//					}
+//					txtTextEmoji.setGravity(Gravity.CENTER);
+//					txtTextEmoji.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//				}
+//				break;
 		}
 
 		if (rootView != null) {
@@ -323,10 +334,10 @@ public class PhotoEditor {
 	 *
 	 * @param brushDrawingMode true if mode is enabled
 	 */
-	public void setBrushDrawingMode(boolean brushDrawingMode) {
+//	public void setBrushDrawingMode(boolean brushDrawingMode) {
 //		if (brushDrawingView != null)
 //			brushDrawingView.setBrushDrawingMode(brushDrawingMode);
-	}
+//	}
 
 	/**
 	 * @return true is brush mode is enabled
@@ -703,7 +714,7 @@ public class PhotoEditor {
 		private View deleteView;
 //		private BrushDrawingView brushDrawingView;
 		private Typeface textTypeface;
-		private Typeface emojiTypeface;
+//		private Typeface emojiTypeface;
 		//By Default pinch zoom on text is enabled
 		private boolean isTextPinchZoomable = true;
 
@@ -718,6 +729,7 @@ public class PhotoEditor {
 			this.context = context;
 			parentView = photoEditorView;
 			imageView = photoEditorView.getSource();
+			Log.d(TAG, "Builder: " + imageView.toString());
 //			brushDrawingView = photoEditorView.getBrushDrawingView();
 		}
 
@@ -743,10 +755,10 @@ public class PhotoEditor {
 		 * @param emojiTypeface typeface for custom font
 		 * @return {@link Builder} instant to build {@link PhotoEditor}
 		 */
-		public Builder setDefaultEmojiTypeface(Typeface emojiTypeface) {
-			this.emojiTypeface = emojiTypeface;
-			return this;
-		}
+//		public Builder setDefaultEmojiTypeface(Typeface emojiTypeface) {
+//			this.emojiTypeface = emojiTypeface;
+//			return this;
+//		}
 
 		/**
 		 * set false to disable pinch to zoom on text insertion.By deafult its true
@@ -764,6 +776,8 @@ public class PhotoEditor {
 //			return this;
 //		}
 
+
+
 		/**
 		 * @return build PhotoEditor instance
 		 */
@@ -778,13 +792,13 @@ public class PhotoEditor {
 	 * @param context context
 	 * @return list of emoji unicode
 	 */
-	public static ArrayList<String> getEmojis(Context context) {
-		ArrayList<String> convertedEmojiList = new ArrayList<>();
-		String[] emojiList = context.getResources().getStringArray(R.array.photo_editor_emoji);
-		for (String emojiUnicode : emojiList) {
-			convertedEmojiList.add(convertEmoji(emojiUnicode));
-		}
-		return convertedEmojiList;
-	}
+//	public static ArrayList<String> getEmojis(Context context) {
+//		ArrayList<String> convertedEmojiList = new ArrayList<>();
+//		String[] emojiList = context.getResources().getStringArray(R.array.photo_editor_emoji);
+//		for (String emojiUnicode : emojiList) {
+//			convertedEmojiList.add(convertEmoji(emojiUnicode));
+//		}
+//		return convertedEmojiList;
+//	}
 
 }

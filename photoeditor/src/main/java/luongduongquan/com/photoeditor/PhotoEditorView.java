@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,7 +17,7 @@ public class PhotoEditorView extends RelativeLayout {
 
 	private ImageView mImgSource;
 //	private BrushDrawingView mBrushDrawingView;
-	private static final int imgSrcId = 1, brushSrcId = 2;
+	private static final int imgSrcId = 111111, brushSrcId = 2;
 
 	public PhotoEditorView(Context context) {
 		super(context);
@@ -45,6 +46,7 @@ public class PhotoEditorView extends RelativeLayout {
 		mImgSource = new ImageView(getContext());
 		mImgSource.setId(imgSrcId);
 		mImgSource.setAdjustViewBounds(true);
+		mImgSource.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		RelativeLayout.LayoutParams imgSrcParam = new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		imgSrcParam.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -52,6 +54,7 @@ public class PhotoEditorView extends RelativeLayout {
 			TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PhotoEditorView);
 			Drawable imgSrcDrawable = a.getDrawable(R.styleable.PhotoEditorView_photo_src);
 			if (imgSrcDrawable != null) {
+				Log.d("QUAN123", "setImageDrawable ");
 				mImgSource.setImageDrawable(imgSrcDrawable);
 			}
 		}
@@ -61,11 +64,11 @@ public class PhotoEditorView extends RelativeLayout {
 //		mBrushDrawingView.setVisibility(GONE);
 //		mBrushDrawingView.setId(brushSrcId);
 		//Align brush to the size of image view
-		RelativeLayout.LayoutParams brushParam = new RelativeLayout.LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		brushParam.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-		brushParam.addRule(RelativeLayout.ALIGN_TOP, imgSrcId);
-		brushParam.addRule(RelativeLayout.ALIGN_BOTTOM, imgSrcId);
+//		RelativeLayout.LayoutParams brushParam = new RelativeLayout.LayoutParams(
+//				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//		brushParam.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+//		brushParam.addRule(RelativeLayout.ALIGN_TOP, imgSrcId);
+//		brushParam.addRule(RelativeLayout.ALIGN_BOTTOM, imgSrcId);
 
 
 		//Add image source
@@ -86,4 +89,5 @@ public class PhotoEditorView extends RelativeLayout {
 //	BrushDrawingView getBrushDrawingView() {
 //		return mBrushDrawingView;
 //	}
+
 }

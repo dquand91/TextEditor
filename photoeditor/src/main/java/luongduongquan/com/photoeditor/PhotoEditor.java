@@ -124,7 +124,7 @@ public class PhotoEditor {
 	public void addText(@Nullable Typeface textTypeface, String text, final int colorCodeTextView) {
 //		brushDrawingView.setBrushDrawingMode(false);
 		final View textRootView = getLayout(ViewType.TEXT);
-		final TextView textInputTv = textRootView.findViewById(R.id.tvPhotoEditorText);
+		final CustomEditText textInputTv = textRootView.findViewById(R.id.tvPhotoEditorText);
 		final ImageView imgClose = textRootView.findViewById(R.id.imgPhotoEditorClose);
 		final FrameLayout frmBorder = textRootView.findViewById(R.id.frmBorder);
 
@@ -195,6 +195,19 @@ public class PhotoEditor {
 			int i = addedViews.indexOf(view);
 			if (i > -1) addedViews.set(i, view);
 		}
+	}
+
+	public void scaleTextView(float scale){
+		Log.d(TAG, "addedViews: " + addedViews.size());
+		for (View view : addedViews) {
+			CustomEditText inputTextView = view.findViewById(R.id.tvPhotoEditorText);
+			if (inputTextView != null && addedViews.contains(view)) {
+				view.getLayoutParams().width *= scale;
+				view.getLayoutParams().height *= scale;
+				parentView.updateViewLayout(view, view.getLayoutParams());
+			}
+		}
+
 	}
 
 	/**

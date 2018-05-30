@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import luongduongquan.com.photoeditor.OnPhotoEditorListener;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements OnPhotoEditorList
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private PhotoEditor mPhotoEditor;
 	private PhotoEditorView mPhotoEditorView;
+	private int current_width = 1;
+	private int current_height = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,68 @@ public class MainActivity extends AppCompatActivity implements OnPhotoEditorList
 		mPhotoEditorView.getSource().setImageDrawable(getResources().getDrawable(R.drawable.ccc));
 		mPhotoEditor.setOnPhotoEditorListener(this);
 		mPhotoEditor.addText("Hello Quan", ContextCompat.getColor(MainActivity.this, R.color.red_color_picker));
+
+//		final View activityRootView = findViewById(R.id.actionBar_main);
+//		activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//			@Override
+//			public void onGlobalLayout() {
+//				int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
+//				Log.d(TAG, "QUAN --- RootHeight = " + activityRootView.getRootView().getHeight() + " --- "
+//						+ "Height = " + activityRootView.getHeight() +  " --- " + "heightDiff = " + heightDiff );
+//
+//
+//			}
+//		});
+
+		final View root  = findViewById(android.R.id.content);
+
+		root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+			Rect r = new Rect();
+			{
+				root.getWindowVisibleDisplayFrame(r);
+			}
+			@Override
+			public void onGlobalLayout() {
+				Rect r2 = new Rect();
+				root.getWindowVisibleDisplayFrame(r2);
+				int keyboardHeight = r.height() - r2.height();
+
+
+					final RelativeLayout actionBarMain = findViewById(R.id.actionBar_main);
+					Log.d(TAG, "current_height: " + current_height + " ---- " +  "r2.height()" + r2.height());
+					float xScale = (float)(r2.width() - actionBarMain.getWidth()) / (current_width - actionBarMain.getWidth());
+					float yScale = (float)(r2.height() - actionBarMain.getHeight()) / (current_height - actionBarMain.getHeight());
+					float scale = Math.min(xScale, yScale);
+
+					mPhotoEditor.scaleTextView(scale);
+
+					current_height = r2.height();
+					current_width = r2.width();
+
+//				if (keyboardHeight > 100) {
+//					root.scrollTo(0, keyboardHeight);
+//				}
+//				else {
+//					root.scrollTo(0, 0);
+//				}
+
+//				actionBarMain.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//					@Override
+//					public void onGlobalLayout() {
+//						actionBarMain.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//						actionBarMain.getHeight(); //height is ready
+//						Log.d(TAG, "QUAN --- BarHeight = " + actionBarMain.getHeight() );
+//					}
+//				});
+
+
+//
+
+
+				Log.d(TAG, "QUAN --- keyboardHeight = " + keyboardHeight + " --- "
+						+ "FullScreen = " + r.height() +  " --- " + "r2.height() = " + r2.height() );
+			}
+		});
 
 
 	}
@@ -59,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements OnPhotoEditorList
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	}
+
+
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent event) {
@@ -86,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements OnPhotoEditorList
 	@Override
 	public void onEditTextChangeListener(View rootView, String text, int colorCode) {
 
-
+		Log.d(TAG, "QUAN123    onEditTextChangeListener: ");
 
 	}
 
